@@ -23,14 +23,14 @@ function App() {
     },
   ];
 
-  
-  // <ExpenseItem></ExpenseItem> we can write this as <ExpenseItem/> if nothing is there between open and closing tags of that
+
+
   return (
     <div>
       <h2>Let's get started!</h2>
-      <Expenses items={expenses}/>
+      <Expenses items = {expenses}/>
     </div>
   );
 }
 
-export default App;
+export default App
