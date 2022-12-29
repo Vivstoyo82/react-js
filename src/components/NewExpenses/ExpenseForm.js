@@ -1,20 +1,33 @@
-import React from "react";
+import React, {useState} from "react";
 import './ExpenseForm.css';
 
 const ExpenseForm = () => {
+    const [enteredTitle, setEnteredTitle] = useState(''); // Starting useState('') khali rakha hai kyunki starting main koi value nahi hogi isliye aur jo bhi value ayegi woh string main convert hojayegi
+    const [enteredAmount, setEnteredAmount] = useState('');
+    const [enteredDate, setEnteredDate] = useState('');
 
     const titleChangeHandler = (event) => {
-    console.log(event.target.value); // If you console event here then you will that we found exact value in event->targer->value
+    setEnteredTitle(event.target.value); // If you console event here then you will that we found exact value in event->targer->value
 }
 
-const AmountChangeHandler = (event) => {
-    console.log(event.target.value)
+const amountChangeHandler = (event) => {
+    setEnteredAmount(event.target.value);
 }
 
 const dateChangeHandler = (event) => {
-    console.log(event.target.value)
+    setEnteredDate(event.target.value);
 }
-    return <form>
+
+const submitHandler = (event) => {
+    event.preventDefault();
+    const expenseData = {
+        title : enteredTitle,
+        amount : enteredAmount,
+        date : new Date(enteredDate)
+    }
+    console.log(expenseData);
+}
+    return <form onSubmit={submitHandler}>
         <div className="new-expense__controls">
             <div className="new-expense__control">
                 <label >Expense Title</label>
@@ -22,7 +35,7 @@ const dateChangeHandler = (event) => {
             </div>
             <div className="new-expense__control">
                 <label>Expense Amount</label>
-                <input onChange={AmountChangeHandler} type="number" min="0.01" step="0.01" />
+                <input onChange={amountChangeHandler} type="number" min="0.01" step="0.01" />
             </div>
             <div className="new-expense__control">
                 <label>Expense Date</label>
