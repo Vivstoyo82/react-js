@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import './ExpenseForm.css';
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
     const [enteredTitle, setEnteredTitle] = useState(''); // Starting useState('') khali rakha hai kyunki starting main koi value nahi hogi isliye aur jo bhi value ayegi woh string main convert hojayegi
     const [enteredAmount, setEnteredAmount] = useState('');
     const [enteredDate, setEnteredDate] = useState('');
@@ -20,26 +20,32 @@ const dateChangeHandler = (event) => {
 
 const submitHandler = (event) => {
     event.preventDefault();
+    
     const expenseData = {
         title : enteredTitle,
         amount : enteredAmount,
         date : new Date(enteredDate)
-    }
-    console.log(expenseData);
+    };
+    // console.log(expenseData);
+    props.onSaveExpenseData(expenseData);
+    setEnteredTitle(''); // jab form submit hoga toh yeh user se data lene ke baad setEnteredTitle('') 
+    //khali string pass karega aur niche value={enteredTitle} main value ('') khali jayegi same niche main bhi
+    setEnteredAmount('');
+    setEnteredDate('');
 }
     return <form onSubmit={submitHandler}>
         <div className="new-expense__controls">
             <div className="new-expense__control">
                 <label >Expense Title</label>
-                <input onChange={titleChangeHandler} type="text" />
+                <input value={enteredTitle} onChange={titleChangeHandler} type="text" />
             </div>
             <div className="new-expense__control">
                 <label>Expense Amount</label>
-                <input onChange={amountChangeHandler} type="number" min="0.01" step="0.01" />
+                <input value={enteredAmount} onChange={amountChangeHandler} type="number" min="0.01" step="0.01" />
             </div>
             <div className="new-expense__control">
                 <label>Expense Date</label>
-                <input onChange={dateChangeHandler} type="date" min="2019-01-01" max="2022-12-28" />
+                <input value={enteredDate} onChange={dateChangeHandler} type="date" min="2019-01-01" max="2022-12-28" />
             </div>
         </div>
 
